@@ -1,0 +1,28 @@
+#categories-container {
+        text-align: center;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        
+    
+}
+
+
+
+/*  For Mobile*/
+@media  screen and (max-width: 480px) {
+    #categories-container {
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        
+    
+}
+
+
+}
