@@ -7,7 +7,7 @@ const loadCategories = () => {
 const showCategories = (categories) => {
   const categoriesSection = document.getElementById("categories-container");
 
-  categories.forEach((category) => {
+  categories.filter((category) => {
     // console.log(category.category_id);
     const div = document.createElement("div");
     div.innerHTML = `
@@ -25,20 +25,35 @@ const loadCategoryDetail = (category_id) => {
   const url = `https://openapi.programming-hero.com/api/news/category/0${category_id}`;
   fetch(url)
     .then((res) => res.json())
-    .then((data) => console.log(data.data));
+    .then((data) => displayResult(data.data));
+  //   .then((data) => displayDetails(data.data[0]));
 };
 
-// const displayDetails = (post) => {
-//   console.log(post);
-//   const postDetail = document.getElementById("post-details");
-//   const div = document.createElement("div");
-//   div.classList.add("card");
-//   div.innerHTML = `
-//   <div class="card-body">
-//     <h5 class="card-title">${post}</h5>
-//   </div>`;
-//   postDetail.appendChild(div);
-//   //   console.log(postDetail);
-// };
+const displayResult = (items) => {
+  const categoryDetailsContainer = document.getElementById(
+    "category-details-container"
+  );
+  // clear page/result after one search and for next search
+  categoryDetailsContainer.innerHTML = "";
+
+  if (items.length === 0) {
+    const noResult = document.getElementById("no-result");
+    categoryDetailsContainer.textContent = "No Results Found";
+    noResult.innerHTML = ``;
+  }
+  items.forEach((item) => {
+    console.log(items.length);
+    const div = document.createElement("div");
+    div.classList.add("col");
+    div.innerHTML = `
+        <div onclick="loadDetail(${item._id})" class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">${item.title}</h5>
+                    <p class="card-text">T${item.details.slice(0, 150)}</p>
+                </div>
+            </div>`;
+    categoryDetailsContainer.appendChild(div);
+  });
+};
 
 loadCategories();
