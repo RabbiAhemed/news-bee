@@ -80,36 +80,54 @@ const displayCategoryDetails = (categories) => {
         category.author.name
       }</small></span>
       </div>
-      
       <div><span class="card-text fst-italic"><small class="text-muted">Views:${
         category.total_view
       }</small></span></div>
-      
-      <div><button type="button" class="btn btn-info">Info</button>
+      <div><button onclick="loadNewsDetail('${
+        category._id
+      }')" type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#newsDetailModal">Info</button>
       </div>
-      
-      
       </div>
-     
-     
       </div>
-
   </div>
 </div>
-
   `;
-
       categoryDetailsContainer.appendChild(div);
     }
   }
 };
 
 const loadNewsDetail = (news_id) => {
-  const url = `https://openapi.programming-hero.com/api/news/{news_id}`;
+  const url = `https://openapi.programming-hero.com/api/news/${news_id}`;
   fetch(url)
     .then((res) => res.json())
-    .then((data) => console.log(data));
+    .then((data) => displayNewsDetails(data.data[0]))
+    .catch((error) => console.log(error));
 };
-loadNewsDetail();
+
+const displayNewsDetails = (news) => {
+  console.log(news.title);
+  const modalBody = document.getElementById("modal");
+  modalBody.innerHTML = ``;
+  const div = document.createElement("div");
+  div.classList.add("modal-content");
+  div.innerHTML = `
+  
+      <div class="modal-header">
+        <h5 class="" id="exampleModalLongTitle">${news.title}</h5>
+        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+      `;
+  modalBody.appendChild(div);
+};
 
 loadCategories();
