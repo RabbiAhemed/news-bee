@@ -20,8 +20,19 @@ const showCategories = (categories) => {
   });
 };
 
+// spinner
+const toggleSpinner = (isLoading) => {
+  const spinnerSection = document.getElementById("spinner");
+  if (isLoading) {
+    spinnerSection.classList.remove("d-none");
+  } else {
+    spinnerSection.classList.add("d-none");
+  }
+};
+
 // Load Categories Details
 const loadCategoryDetail = (category_id) => {
+  toggleSpinner(true);
   const url = `https://openapi.programming-hero.com/api/news/category/0${category_id}`;
   fetch(url)
     .then((res) => res.json())
@@ -43,9 +54,11 @@ const displayCategoryDetails = (categories) => {
     lengthOfArray.push(category)
   );
   const resultNumber = document.getElementById("result-number");
+  resultNumber.classList.add("bg-light");
+  resultNumber.classList.add("my-3");
   resultNumber.innerHTML = ``;
   const p = document.createElement("p");
-  p.innerHTML = `Total Number of Matching Content : ${arrayLength.length}`;
+  p.innerHTML = `${arrayLength.length} news found in this category`;
   resultNumber.appendChild(p);
   //
   // Get Category Details Container
@@ -58,6 +71,7 @@ const displayCategoryDetails = (categories) => {
   if (categories.length == 0) {
     resultNumber.innerHTML = ``;
     categoryDetailsContainer.classList.add("text-center");
+
     // categoryDetailsContainer.textContent = "No Results Found";
     categoryDetailsContainer.innerHTML = `
     <h1 class="fw-bold text-info fst-italic"> No News Found In This Category</h1>
@@ -104,6 +118,7 @@ const displayCategoryDetails = (categories) => {
       categoryDetailsContainer.appendChild(div);
     }
   }
+  toggleSpinner(false);
 };
 
 const loadNewsDetail = (news_id) => {
@@ -130,13 +145,7 @@ const displayNewsDetails = (news) => {
       <div class="modal-body">
         <p class="fw-bold">${news.details}</p>
         <p></p>
-        <p></p>
-        <p></p>
-        <p></p>
-        <p></p>
-        <p></p>
-        <p></p>
-        <p></p>
+        
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
