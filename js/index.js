@@ -30,8 +30,13 @@ const loadCategoryDetail = (category_id) => {
 };
 
 const displayCategoryDetails = (categories) => {
-  const noResult = document.getElementById("no-result");
+  // console.log(categories);
 
+  categories.sort((a, b) => {
+    return b.total_view - a.total_view;
+  });
+  // console.log(categories);
+  const noResult = document.getElementById("no-result");
   // show number of contents in that category
   const lengthOfArray = [];
   const arrayLength = categories.map((category) =>
@@ -53,11 +58,15 @@ const displayCategoryDetails = (categories) => {
   if (categories.length == 0) {
     resultNumber.innerHTML = ``;
     categoryDetailsContainer.classList.add("text-center");
-    categoryDetailsContainer.textContent = "No Results Found";
+    // categoryDetailsContainer.textContent = "No Results Found";
+    categoryDetailsContainer.innerHTML = `
+    <h1 class="fw-bold text-info fst-italic"> No News Found In This Category</h1>
+    `;
     noResult.innerHTML = ``;
   }
   //
   else {
+    // console.log(typeof categories);
     for (const category of categories) {
       const div = document.createElement("div");
       div.classList.add("mb-3");
@@ -77,7 +86,7 @@ const displayCategoryDetails = (categories) => {
         category.author.img
       }" class=" author-img rounded-circle" alt="author..."></img>
       <span class="card-text fst-italic"><small class="text-muted">${
-        category.author.name
+        category?.author?.name
       }</small></span>
       </div>
       <div><span class="card-text fst-italic"><small class="text-muted">Views:${
@@ -85,7 +94,7 @@ const displayCategoryDetails = (categories) => {
       }</small></span></div>
       <div><button onclick="loadNewsDetail('${
         category._id
-      }')" type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#newsDetailModal">Info</button>
+      }')" type="button" class="btn btn-info text-white" data-bs-toggle="modal" data-bs-target="#newsDetailModal">Info</button>
       </div>
       </div>
       </div>
@@ -106,13 +115,12 @@ const loadNewsDetail = (news_id) => {
 };
 
 const displayNewsDetails = (news) => {
-  console.log(news.title);
   const modalBody = document.getElementById("modal");
   modalBody.innerHTML = ``;
   const div = document.createElement("div");
   div.classList.add("modal-content");
   div.innerHTML = `
-  
+
       <div class="modal-header">
         <h5 class="" id="exampleModalLongTitle">${news.title}</h5>
         <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
@@ -120,7 +128,15 @@ const displayNewsDetails = (news) => {
         </button>
       </div>
       <div class="modal-body">
-        ...
+        <p class="fw-bold">${news.details}</p>
+        <p></p>
+        <p></p>
+        <p></p>
+        <p></p>
+        <p></p>
+        <p></p>
+        <p></p>
+        <p></p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
