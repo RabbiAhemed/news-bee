@@ -9,7 +9,19 @@
     
 }
 
+.author-img{
+        width: 15%;
+        height: 15%;
+}
 
+.card-bottom{
+        display: flex;
+flex-direction: row;
+justify-content: space-between;
+align-items: center;
+padding: 0px;
+gap: 135px;
+}
 
 /*  For Mobile*/
 @media  screen and (max-width: 480px) {
@@ -22,6 +34,15 @@
         width: 100%;
         
     
+}
+
+.card-bottom{
+        display: flex;
+flex-direction: column;
+justify-content: space-between;
+align-items: center;
+padding: 0px;
+gap: 20px;
 }
 
 
