@@ -29,10 +29,20 @@ const toggleSpinner = (isLoading) => {
     spinnerSection.classList.add("d-none");
   }
 };
+// toggle view section
+const toggleViewSection = (isAvailable) => {
+  const viewSection = document.getElementById("view-section");
+  if (isAvailable) {
+    viewSection.classList.remove("d-none");
+  } else {
+    viewSection.classList.add("d-none");
+  }
+};
 
 // Load Categories Details
 const loadCategoryDetail = (category_id) => {
   toggleSpinner(true);
+  toggleViewSection(true);
   const url = `https://openapi.programming-hero.com/api/news/category/0${category_id}`;
   fetch(url)
     .then((res) => res.json())
@@ -69,10 +79,9 @@ const displayCategoryDetails = (categories) => {
   categoryDetailsContainer.innerHTML = "";
   // check if category has data inside and show no data found
   if (categories.length == 0) {
-    resultNumber.innerHTML = ``;
+    toggleViewSection(false);
+    // resultNumber.innerHTML = ``;
     categoryDetailsContainer.classList.add("text-center");
-
-    // categoryDetailsContainer.textContent = "No Results Found";
     categoryDetailsContainer.innerHTML = `
     <h1 class="fw-bold text-info fst-italic"> No News Found In This Category</h1>
     `;
@@ -80,7 +89,31 @@ const displayCategoryDetails = (categories) => {
   }
   //
   else {
-    // console.log(typeof categories);
+    toggleViewSection(true);
+    /* const viewSection = document.getElementById("view-section");
+    const div = document.createElement("div");
+    viewSection.innerHTML = ``;
+    div.classList.add("d-flex");
+    div.classList.add("justify-content-around");
+    div.classList.add("align-items-center");
+    div.innerHTML = `
+    <div class="dropdown">
+    <button class="btn btn-secondary dropdown-bs-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      Default
+    </button>
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+      <a class="dropdown-item" href="#">Action</a>
+      <a class="dropdown-item" href="#">Another action</a>
+      <a class="dropdown-item" href="#">Something else here</a>
+    </div
+    </div>
+    <div class="d-flex">
+    <button type="button" class="btn btn-primary mx-1 fw-bold">Today's Pick</button>
+    <button type="button" class="btn btn-outline-primary mx-1 fw-bold">Trending</button>
+    </div>
+    
+    `;
+    viewSection.appendChild(div); */
     for (const category of categories) {
       const div = document.createElement("div");
       div.classList.add("mb-3");
@@ -108,7 +141,7 @@ const displayCategoryDetails = (categories) => {
       }</small></span></div>
       <div><button onclick="loadNewsDetail('${
         category._id
-      }')" type="button" class="btn btn-info text-white" data-bs-toggle="modal" data-bs-target="#newsDetailModal">Info</button>
+      }')" type="button" class="btn btn-info text-white" data-bs-toggle="modal" data-bs-target="#newsDetailModal">View</button>
       </div>
       </div>
       </div>
@@ -149,7 +182,6 @@ const displayNewsDetails = (news) => {
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
       </div>
       `;
   modalBody.appendChild(div);
