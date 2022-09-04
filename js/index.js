@@ -38,11 +38,21 @@ const toggleViewSection = (isAvailable) => {
     viewSection.classList.add("d-none");
   }
 };
+// toggle footer
+const toggleFooter = (isAvailable) => {
+  const footer = document.getElementById("footer");
+  if (isAvailable) {
+    footer.classList.remove("d-none");
+  } else {
+    footer.classList.add("d-none");
+  }
+};
 
 // Load Categories Details
 const loadCategoryDetail = (category_id) => {
   toggleSpinner(true);
   toggleViewSection(true);
+  toggleFooter(true);
   const url = `https://openapi.programming-hero.com/api/news/category/0${category_id}`;
   fetch(url)
     .then((res) => res.json())
@@ -80,6 +90,7 @@ const displayCategoryDetails = (categories) => {
   // check if category has data inside and show no data found
   if (categories.length == 0) {
     toggleViewSection(false);
+    toggleFooter(true);
     // resultNumber.innerHTML = ``;
     categoryDetailsContainer.classList.add("text-center");
     categoryDetailsContainer.innerHTML = `
@@ -90,6 +101,7 @@ const displayCategoryDetails = (categories) => {
   //
   else {
     toggleViewSection(true);
+    toggleFooter(true);
     for (const category of categories) {
       const div = document.createElement("div");
       div.classList.add("mb-3");
