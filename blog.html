@@ -56,20 +56,30 @@
           </div>
         <!-- Navbar Ends -->
     </header>
-    <div id="heading" class="text-center"><h1>Blogs</h1></div>
+    <div id="heading" class="text-center my-3"><h1>Blogs</h1></div>
     <section class="w-75 mx-auto">
       <div>
-        <h4>Difference between var , let & const</h4>
+        <h4>i) Difference between var , let & const</h4>
         <p>var variables can be updated and re-declared within its scope; let variables can be updated but not re-declared; const variables can neither be updated nor re-declared. They are all hoisted to the top of their scope. But while var variables are initialized with undefined , let and const variables are not initialized.</p>
         </div>
         <div>
-        <h4>Difference between arrow function & regular function</h4>
+        <h4>ii)Difference between arrow function & regular function</h4>
+        <p>Regular function has this keyword but arrow function doesn't have it.</p>
+        <p>Arguments objects are not available in arrow functions, but are available in regular functions.</p>
+        <p>Regular functions created using function declarations or expressions are ‘constructible’ and ‘callable’. As regular functions are constructible, they can be called using the ‘new’ keyword. But, the arrow functions are only ‘callable’ and not constructible.</p>
       </div>
       <div>
-        <h4>Difference between map , for each , filter & find</h4>
+        <h4>iii) Difference between map , forEach , filter & find</h4>
+        <p><strong>map : </strong> map is used for arrays.map executes the same code on every element in an array and returns a new array with the updated elements.</p>
+        <p><strong>forEach : </strong> forEach is used to execute the same code on every element in an array but does not change the array and it returns undefined.</p>
+        <p><strong>filter : </strong> filter checks every element in an array to see if it meets a certain criteria and returns a new array with all the elements that return truthy / matches for the criteria.</p>
+        <p><strong>find : </strong> find also checks every element in an array to see if it meets a certain criteria and returns just the first element that return truthy / matches for the criteria.</p>
+
       </div>
       <div>
-        <h4>Why do we need/use template string</h4>
+        <h4>iv) Why do we need/use template string</h4>
+        <p>In-order to create a multiline string an escape sequence \n was used to give new line character. However, Template Literals there is no need to add \n string ends only when it gets backtick `` character.</p>
+        <p>To dynamically add values into new Template Literals expressions are used. The ${} syntax allows an expression in it that produces the value. This value can be a string stored in a variable or a computation operation.</p>
       </div>
     </section>
     <!-- Bootstrap js -->
